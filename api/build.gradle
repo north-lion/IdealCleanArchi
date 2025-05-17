@@ -1,0 +1,73 @@
+// Ref: https://grpc-ecosystem.github.io/grpc-spring/en/server/getting-started.html
+buildscript {
+    ext {
+        protobufVersion = '3.23.4'
+        protobufPluginVersion = '0.8.18'
+        grpcVersion = '1.58.0'
+    }
+}
+
+plugins {
+    id 'application'
+    id 'com.google.protobuf' version "${protobufPluginVersion}"
+}
+
+dependencies {
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+    // Workaround for @javax.annotation.Generated
+    // see: https://github.com/grpc/grpc-java/issues/3633
+    compileOnly "org.apache.tomcat:annotations-api:6.0.53"
+    compileOnly 'jakarta.annotation:jakarta.annotation-api:1.3.5' // Java 9+ compatibility - Do NOT update to 2.0.0
+    // For gRPC Server
+    implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
+    // Change SLF4J & log4j2
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.2.4') // Adjust this version to grpc-spring supported version
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    modules {
+        module('org.springframework.boot:spring-boot-starter-logging') {
+            replacedBy 'org.springframework.boot:spring-boot-starter-log4j2'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    generatedFilesBaseDir = "$projectDir/src/generated"
+    clean {
+        delete generatedFilesBaseDir
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+mainClassName = 'ddd.presentation.HelloApplication'
+
+jar {
+    // Ref: https://stackoverflow.com/questions/67265308/gradle-entry-classpath-is-a-duplicate-but-no-duplicate-handling-strategy-has-b
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Main-Class': "${mainClassName}"
+    }
+    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}

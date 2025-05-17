@@ -1,0 +1,59 @@
+buildscript {
+    // ローカル変数(def)よりも拡張プロパティを推奨している
+    // Ref:http://gradle.monochromeroad.com/docs/userguide/writing_build_scripts.html
+    ext {
+        // lombokの実装はJDKに依存しているので、ちゃんと使用するJDKバージョンに対応したバージョンを選ぶべし
+        // Ref: https://qiita.com/zoeque/items/6b6ad6a8c842febd8368
+        // Ref：https://projectlombok.org/changelog
+        lombokVersion = '1.18.30'
+        // バージョン管理が楽なので、bomがあるなら利用すべし
+        // Ref：https://github.com/junit-team/junit5-samples/blob/main/junit5-jupiter-starter-gradle/build.gradle
+        junitVersion = '5.12.2'
+        // バージョン管理が楽なので、bomがあるなら利用すべし2
+        // Ref: https://logging.apache.org/log4j/2.x/manual/getting-started.html
+        log4j2Version = '2.24.3'
+    }
+}
+
+allprojects {
+    group 'north.practice'
+    version '1.0.0'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    repositories {
+        // mavenセントラル一択。JCenterは閉鎖した
+        mavenCentral()
+    }
+
+    dependencies {
+        // JUnit5
+        testImplementation platform("org.junit:junit-bom:${junitVersion}")
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+        // Lombok
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        // log4j2
+        implementation platform("org.apache.logging.log4j:log4j-bom:${log4j2Version}")
+        // lo4j2-apiの説明: https://logging.apache.org/log4j/2.x/index.html
+        implementation 'org.apache.logging.log4j:log4j-api'
+        runtimeOnly 'org.apache.logging.log4j:log4j-core'
+        // JSON
+        implementation("com.fasterxml.jackson.core:jackson-databind:2.19.0")
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}

@@ -1,0 +1,3 @@
+rootProject.name = 'IdealCleanArchi'
+include 'shared'
+include 'api'

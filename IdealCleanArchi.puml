@@ -1,0 +1,331 @@
+@startuml
+class org.springframework.grpc.sample.proto.HelloRequest {
+- {static} long serialVersionUID
++ {static} int NAME_FIELD_NUMBER
+- java.lang.Object name_
+- byte memoizedIsInitialized
+- {static} org.springframework.grpc.sample.proto.HelloRequest DEFAULT_INSTANCE
+- {static} com.google.protobuf.Parser<HelloRequest> PARSER
+# java.lang.Object newInstance(UnusedPrivateParameter)
++ {static} com.google.protobuf.Descriptors.Descriptor getDescriptor()
+# com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable()
++ java.lang.String getName()
++ com.google.protobuf.ByteString getNameBytes()
++ boolean isInitialized()
++ void writeTo(com.google.protobuf.CodedOutputStream)
++ int getSerializedSize()
++ boolean equals(java.lang.Object)
++ int hashCode()
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(java.nio.ByteBuffer)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(java.nio.ByteBuffer,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(com.google.protobuf.ByteString)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(com.google.protobuf.ByteString,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(byte[])
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(byte[],com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(java.io.InputStream)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(java.io.InputStream,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseDelimitedFrom(java.io.InputStream)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseDelimitedFrom(java.io.InputStream,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(com.google.protobuf.CodedInputStream)
++ {static} org.springframework.grpc.sample.proto.HelloRequest parseFrom(com.google.protobuf.CodedInputStream,com.google.protobuf.ExtensionRegistryLite)
++ Builder newBuilderForType()
++ {static} Builder newBuilder()
++ {static} Builder newBuilder(org.springframework.grpc.sample.proto.HelloRequest)
++ Builder toBuilder()
+# Builder newBuilderForType(com.google.protobuf.GeneratedMessageV3.BuilderParent)
++ {static} org.springframework.grpc.sample.proto.HelloRequest getDefaultInstance()
++ {static} com.google.protobuf.Parser<HelloRequest> parser()
++ com.google.protobuf.Parser<HelloRequest> getParserForType()
++ org.springframework.grpc.sample.proto.HelloRequest getDefaultInstanceForType()
+}
+
+
+class org.springframework.grpc.sample.proto.HelloRequest$Builder {
+- int bitField0_
+- java.lang.Object name_
++ {static} com.google.protobuf.Descriptors.Descriptor getDescriptor()
+# com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable()
++ Builder clear()
++ com.google.protobuf.Descriptors.Descriptor getDescriptorForType()
++ org.springframework.grpc.sample.proto.HelloRequest getDefaultInstanceForType()
++ org.springframework.grpc.sample.proto.HelloRequest build()
++ org.springframework.grpc.sample.proto.HelloRequest buildPartial()
+- void buildPartial0(org.springframework.grpc.sample.proto.HelloRequest)
++ Builder clone()
++ Builder setField(com.google.protobuf.Descriptors.FieldDescriptor,java.lang.Object)
++ Builder clearField(com.google.protobuf.Descriptors.FieldDescriptor)
++ Builder clearOneof(com.google.protobuf.Descriptors.OneofDescriptor)
++ Builder setRepeatedField(com.google.protobuf.Descriptors.FieldDescriptor,int,java.lang.Object)
++ Builder addRepeatedField(com.google.protobuf.Descriptors.FieldDescriptor,java.lang.Object)
++ Builder mergeFrom(com.google.protobuf.Message)
++ Builder mergeFrom(org.springframework.grpc.sample.proto.HelloRequest)
++ boolean isInitialized()
++ Builder mergeFrom(com.google.protobuf.CodedInputStream,com.google.protobuf.ExtensionRegistryLite)
++ java.lang.String getName()
++ com.google.protobuf.ByteString getNameBytes()
++ Builder setName(java.lang.String)
++ Builder clearName()
++ Builder setNameBytes(com.google.protobuf.ByteString)
++ Builder setUnknownFields(com.google.protobuf.UnknownFieldSet)
++ Builder mergeUnknownFields(com.google.protobuf.UnknownFieldSet)
+}
+
+
+interface ddd.domain.repository.SendHelloRepository {
+~ void send(String)
+}
+
+class ddd.application.HelloScenario {
+~ PrintMessageService printService
+~ CreateMessageService createService
+~ SendMessageService sendService
++ HelloMessage execute(HelloRequest)
+}
+
+
+class org.springframework.grpc.sample.proto.SimpleGrpc {
++ {static} java.lang.String SERVICE_NAME
+- {static} io.grpc.MethodDescriptor<org.springframework.grpc.sample.proto.HelloRequest,org.springframework.grpc.sample.proto.HelloReply> getSayHelloMethod
+- {static} io.grpc.MethodDescriptor<org.springframework.grpc.sample.proto.HelloRequest,org.springframework.grpc.sample.proto.HelloReply> getStreamHelloMethod
+- {static} int METHODID_SAY_HELLO
+- {static} int METHODID_STREAM_HELLO
+- {static} io.grpc.ServiceDescriptor serviceDescriptor
++ {static} io.grpc.MethodDescriptor<org.springframework.grpc.sample.proto.HelloRequest,org.springframework.grpc.sample.proto.HelloReply> getSayHelloMethod()
++ {static} io.grpc.MethodDescriptor<org.springframework.grpc.sample.proto.HelloRequest,org.springframework.grpc.sample.proto.HelloReply> getStreamHelloMethod()
++ {static} SimpleStub newStub(io.grpc.Channel)
++ {static} SimpleBlockingStub newBlockingStub(io.grpc.Channel)
++ {static} SimpleFutureStub newFutureStub(io.grpc.Channel)
++ {static} io.grpc.ServerServiceDefinition bindService(AsyncService)
++ {static} io.grpc.ServiceDescriptor getServiceDescriptor()
+}
+
+
+interface org.springframework.grpc.sample.proto.SimpleGrpc$AsyncService {
+~ void sayHello(org.springframework.grpc.sample.proto.HelloRequest,io.grpc.stub.StreamObserver<org.springframework.grpc.sample.proto.HelloReply>)
+~ void streamHello(org.springframework.grpc.sample.proto.HelloRequest,io.grpc.stub.StreamObserver<org.springframework.grpc.sample.proto.HelloReply>)
+}
+
+abstract class org.springframework.grpc.sample.proto.SimpleGrpc$SimpleImplBase {
++ io.grpc.ServerServiceDefinition bindService()
+}
+
+class org.springframework.grpc.sample.proto.SimpleGrpc$SimpleStub {
+# SimpleStub build(io.grpc.Channel,io.grpc.CallOptions)
++ void sayHello(org.springframework.grpc.sample.proto.HelloRequest,io.grpc.stub.StreamObserver<org.springframework.grpc.sample.proto.HelloReply>)
++ void streamHello(org.springframework.grpc.sample.proto.HelloRequest,io.grpc.stub.StreamObserver<org.springframework.grpc.sample.proto.HelloReply>)
+}
+
+class org.springframework.grpc.sample.proto.SimpleGrpc$SimpleBlockingStub {
+# SimpleBlockingStub build(io.grpc.Channel,io.grpc.CallOptions)
++ org.springframework.grpc.sample.proto.HelloReply sayHello(org.springframework.grpc.sample.proto.HelloRequest)
++ java.util.Iterator<org.springframework.grpc.sample.proto.HelloReply> streamHello(org.springframework.grpc.sample.proto.HelloRequest)
+}
+
+class org.springframework.grpc.sample.proto.SimpleGrpc$SimpleFutureStub {
+# SimpleFutureStub build(io.grpc.Channel,io.grpc.CallOptions)
++ com.google.common.util.concurrent.ListenableFuture<org.springframework.grpc.sample.proto.HelloReply> sayHello(org.springframework.grpc.sample.proto.HelloRequest)
+}
+
+class org.springframework.grpc.sample.proto.SimpleGrpc$MethodHandlers {
+- AsyncService serviceImpl
+- int methodId
++ void invoke(Req,io.grpc.stub.StreamObserver<Resp>)
++ io.grpc.stub.StreamObserver<Req> invoke(io.grpc.stub.StreamObserver<Resp>)
+}
+
+
+abstract class org.springframework.grpc.sample.proto.SimpleGrpc$SimpleBaseDescriptorSupplier {
++ com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor()
++ com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor()
+}
+
+class org.springframework.grpc.sample.proto.SimpleGrpc$SimpleFileDescriptorSupplier {
+}
+class org.springframework.grpc.sample.proto.SimpleGrpc$SimpleMethodDescriptorSupplier {
+- java.lang.String methodName
++ com.google.protobuf.Descriptors.MethodDescriptor getMethodDescriptor()
+}
+
+
+class ddd.presentation.HelloApplication {
++ {static} void main(String[])
+}
+
+class ddd.domain.exceptions.ServiceException {
+~ boolean retryable
++ boolean isRetry()
+}
+
+
+class ddd.domain.dto.MessageDto {
++ HelloMessage convertToMessage(HelloRequest)
+}
+
+class ddd.domain.service.PrintMessageService {
++ void print(HelloRequest)
+}
+
+class ddd.infrastructure.SendHelloRepositoryImpl {
++ void send(String)
+}
+
+class org.springframework.grpc.sample.proto.HelloReply {
+- {static} long serialVersionUID
++ {static} int MESSAGE_FIELD_NUMBER
+- java.lang.Object message_
+- byte memoizedIsInitialized
+- {static} org.springframework.grpc.sample.proto.HelloReply DEFAULT_INSTANCE
+- {static} com.google.protobuf.Parser<HelloReply> PARSER
+# java.lang.Object newInstance(UnusedPrivateParameter)
++ {static} com.google.protobuf.Descriptors.Descriptor getDescriptor()
+# com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable()
++ java.lang.String getMessage()
++ com.google.protobuf.ByteString getMessageBytes()
++ boolean isInitialized()
++ void writeTo(com.google.protobuf.CodedOutputStream)
++ int getSerializedSize()
++ boolean equals(java.lang.Object)
++ int hashCode()
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(java.nio.ByteBuffer)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(java.nio.ByteBuffer,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(com.google.protobuf.ByteString)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(com.google.protobuf.ByteString,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(byte[])
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(byte[],com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(java.io.InputStream)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(java.io.InputStream,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseDelimitedFrom(java.io.InputStream)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseDelimitedFrom(java.io.InputStream,com.google.protobuf.ExtensionRegistryLite)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(com.google.protobuf.CodedInputStream)
++ {static} org.springframework.grpc.sample.proto.HelloReply parseFrom(com.google.protobuf.CodedInputStream,com.google.protobuf.ExtensionRegistryLite)
++ Builder newBuilderForType()
++ {static} Builder newBuilder()
++ {static} Builder newBuilder(org.springframework.grpc.sample.proto.HelloReply)
++ Builder toBuilder()
+# Builder newBuilderForType(com.google.protobuf.GeneratedMessageV3.BuilderParent)
++ {static} org.springframework.grpc.sample.proto.HelloReply getDefaultInstance()
++ {static} com.google.protobuf.Parser<HelloReply> parser()
++ com.google.protobuf.Parser<HelloReply> getParserForType()
++ org.springframework.grpc.sample.proto.HelloReply getDefaultInstanceForType()
+}
+
+
+class org.springframework.grpc.sample.proto.HelloReply$Builder {
+- int bitField0_
+- java.lang.Object message_
++ {static} com.google.protobuf.Descriptors.Descriptor getDescriptor()
+# com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable()
++ Builder clear()
++ com.google.protobuf.Descriptors.Descriptor getDescriptorForType()
++ org.springframework.grpc.sample.proto.HelloReply getDefaultInstanceForType()
++ org.springframework.grpc.sample.proto.HelloReply build()
++ org.springframework.grpc.sample.proto.HelloReply buildPartial()
+- void buildPartial0(org.springframework.grpc.sample.proto.HelloReply)
++ Builder clone()
++ Builder setField(com.google.protobuf.Descriptors.FieldDescriptor,java.lang.Object)
++ Builder clearField(com.google.protobuf.Descriptors.FieldDescriptor)
++ Builder clearOneof(com.google.protobuf.Descriptors.OneofDescriptor)
++ Builder setRepeatedField(com.google.protobuf.Descriptors.FieldDescriptor,int,java.lang.Object)
++ Builder addRepeatedField(com.google.protobuf.Descriptors.FieldDescriptor,java.lang.Object)
++ Builder mergeFrom(com.google.protobuf.Message)
++ Builder mergeFrom(org.springframework.grpc.sample.proto.HelloReply)
++ boolean isInitialized()
++ Builder mergeFrom(com.google.protobuf.CodedInputStream,com.google.protobuf.ExtensionRegistryLite)
++ java.lang.String getMessage()
++ com.google.protobuf.ByteString getMessageBytes()
++ Builder setMessage(java.lang.String)
++ Builder clearMessage()
++ Builder setMessageBytes(com.google.protobuf.ByteString)
++ Builder setUnknownFields(com.google.protobuf.UnknownFieldSet)
++ Builder mergeUnknownFields(com.google.protobuf.UnknownFieldSet)
+}
+
+
+class ddd.domain.model.HelloMessage {
+~ String messageId
+~ String messageBody
+}
+
+class org.springframework.grpc.sample.proto.HelloWorldProto {
+~ {static} com.google.protobuf.Descriptors.Descriptor internal_static_HelloRequest_descriptor
+~ {static} com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_HelloRequest_fieldAccessorTable
+~ {static} com.google.protobuf.Descriptors.Descriptor internal_static_HelloReply_descriptor
+~ {static} com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_HelloReply_fieldAccessorTable
+- {static} com.google.protobuf.Descriptors.FileDescriptor descriptor
++ {static} void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite)
++ {static} void registerAllExtensions(com.google.protobuf.ExtensionRegistry)
++ {static} com.google.protobuf.Descriptors.FileDescriptor getDescriptor()
+}
+
+
+class ddd.domain.service.SendMessageService {
+- {static} ObjectMapper MAPPER
+~ SendHelloRepository sendRepository
++ void send(HelloMessage)
+}
+
+
+class ddd.domain.service.CreateMessageService {
+~ MessageDto messageDto
++ HelloMessage create(HelloRequest)
+}
+
+
+interface org.springframework.grpc.sample.proto.HelloReplyOrBuilder {
+~ java.lang.String getMessage()
+~ com.google.protobuf.ByteString getMessageBytes()
+}
+
+interface org.springframework.grpc.sample.proto.HelloRequestOrBuilder {
+~ java.lang.String getName()
+~ com.google.protobuf.ByteString getNameBytes()
+}
+
+class ddd.presentation.controller.HelloController {
+- {static} ObjectMapper MAPPER
+- HelloScenario scenario
++ void sayHello(HelloRequest,StreamObserver<HelloReply>)
+}
+
+
+
+
+org.springframework.grpc.sample.proto.HelloRequestOrBuilder <|.. org.springframework.grpc.sample.proto.HelloRequest
+org.springframework.grpc.sample.proto.GeneratedMessageV3 <|-- org.springframework.grpc.sample.proto.HelloRequest
+org.springframework.grpc.sample.proto.HelloRequest +.. org.springframework.grpc.sample.proto.HelloRequest$Builder
+org.springframework.grpc.sample.proto.HelloRequestOrBuilder <|.. org.springframework.grpc.sample.proto.HelloRequest$Builder
+org.springframework.grpc.sample.proto.Builder <|-- org.springframework.grpc.sample.proto.HelloRequest$Builder
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$AsyncService
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleImplBase
+org.springframework.grpc.sample.proto.BindableService <|.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleImplBase
+org.springframework.grpc.sample.proto.AsyncService <|.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleImplBase
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleStub
+org.springframework.grpc.sample.proto.AbstractAsyncStub <|-- org.springframework.grpc.sample.proto.SimpleGrpc$SimpleStub
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleBlockingStub
+org.springframework.grpc.sample.proto.AbstractBlockingStub <|-- org.springframework.grpc.sample.proto.SimpleGrpc$SimpleBlockingStub
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleFutureStub
+org.springframework.grpc.sample.proto.AbstractFutureStub <|-- org.springframework.grpc.sample.proto.SimpleGrpc$SimpleFutureStub
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$MethodHandlers
+org.springframework.grpc.sample.proto.UnaryMethod <|.. org.springframework.grpc.sample.proto.SimpleGrpc$MethodHandlers
+org.springframework.grpc.sample.proto.ServerStreamingMethod <|.. org.springframework.grpc.sample.proto.SimpleGrpc$MethodHandlers
+org.springframework.grpc.sample.proto.ClientStreamingMethod <|.. org.springframework.grpc.sample.proto.SimpleGrpc$MethodHandlers
+org.springframework.grpc.sample.proto.BidiStreamingMethod <|.. org.springframework.grpc.sample.proto.SimpleGrpc$MethodHandlers
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleBaseDescriptorSupplier
+org.springframework.grpc.sample.proto.ProtoFileDescriptorSupplier <|.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleBaseDescriptorSupplier
+org.springframework.grpc.sample.proto.ProtoServiceDescriptorSupplier <|.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleBaseDescriptorSupplier
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleFileDescriptorSupplier
+org.springframework.grpc.sample.proto.SimpleBaseDescriptorSupplier <|-- org.springframework.grpc.sample.proto.SimpleGrpc$SimpleFileDescriptorSupplier
+org.springframework.grpc.sample.proto.SimpleGrpc +.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleMethodDescriptorSupplier
+org.springframework.grpc.sample.proto.ProtoMethodDescriptorSupplier <|.. org.springframework.grpc.sample.proto.SimpleGrpc$SimpleMethodDescriptorSupplier
+org.springframework.grpc.sample.proto.SimpleBaseDescriptorSupplier <|-- org.springframework.grpc.sample.proto.SimpleGrpc$SimpleMethodDescriptorSupplier
+ddd.domain.exceptions.Exception <|-- ddd.domain.exceptions.ServiceException
+ddd.domain.repository.SendHelloRepository <|.. ddd.infrastructure.SendHelloRepositoryImpl
+org.springframework.grpc.sample.proto.HelloReplyOrBuilder <|.. org.springframework.grpc.sample.proto.HelloReply
+org.springframework.grpc.sample.proto.GeneratedMessageV3 <|-- org.springframework.grpc.sample.proto.HelloReply
+org.springframework.grpc.sample.proto.HelloReply +.. org.springframework.grpc.sample.proto.HelloReply$Builder
+org.springframework.grpc.sample.proto.HelloReplyOrBuilder <|.. org.springframework.grpc.sample.proto.HelloReply$Builder
+org.springframework.grpc.sample.proto.Builder <|-- org.springframework.grpc.sample.proto.HelloReply$Builder
+org.springframework.grpc.sample.proto.MessageOrBuilder <|-- org.springframework.grpc.sample.proto.HelloReplyOrBuilder
+org.springframework.grpc.sample.proto.MessageOrBuilder <|-- org.springframework.grpc.sample.proto.HelloRequestOrBuilder
+ddd.presentation.controller.SimpleImplBase <|-- ddd.presentation.controller.HelloController
+@enduml
