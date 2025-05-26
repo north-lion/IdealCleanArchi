@@ -1,11 +1,12 @@
 package ddd.application;
 
-import ddd.domain.exceptions.ServiceException;
+import ddd.domain.exceptions.DomainNoRetrievableException;
+import ddd.domain.exceptions.DomainRetrievableException;
 import ddd.domain.model.HelloMessage;
 import ddd.domain.service.CreateMessageService;
 import ddd.domain.service.PrintMessageService;
 import ddd.domain.service.SendMessageService;
-import org.springframework.grpc.sample.proto.HelloRequest;
+import ddd.simple.proto.HelloRequest;
 
 public class HelloScenario {
     // Define Service Classes
@@ -21,7 +22,7 @@ public class HelloScenario {
         this.createService = new CreateMessageService();
         this.sendService = new SendMessageService();
     }
-    public HelloMessage execute(final HelloRequest request) throws ServiceException {
+    public HelloMessage execute(final HelloRequest request) throws DomainNoRetrievableException, DomainRetrievableException {
         // Print HelloRequest Detail.
         printService.print(request);
         // Create Message.

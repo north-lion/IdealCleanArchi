@@ -1,7 +1,7 @@
 package ddd.domain.dto;
 
 import ddd.domain.model.HelloMessage;
-import org.springframework.grpc.sample.proto.HelloRequest;
+import ddd.simple.proto.HelloRequest;
 
 public class MessageDto {
     public HelloMessage convertToMessage(HelloRequest request) {

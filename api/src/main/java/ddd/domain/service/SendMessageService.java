@@ -2,7 +2,7 @@ package ddd.domain.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ddd.domain.exceptions.ServiceException;
+import ddd.domain.exceptions.DomainRetrievableException;
 import ddd.domain.model.HelloMessage;
 import ddd.domain.repository.SendHelloRepository;
 import ddd.infrastructure.SendHelloRepositoryImpl;
@@ -20,12 +20,12 @@ public class SendMessageService {
         this.sendRepository = new SendHelloRepositoryImpl();
     }
 
-    public void send(HelloMessage message) throws ServiceException {
+    public void send(HelloMessage message) throws DomainRetrievableException {
         try {
             String requestBody = MAPPER.writeValueAsString(message);
             sendRepository.send(requestBody);
         } catch (JsonProcessingException e) {
-            throw new ServiceException(e.getMessage(), false);
+            throw new DomainRetrievableException(e.getMessage());
         }
     }
 }
